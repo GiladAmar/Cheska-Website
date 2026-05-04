@@ -186,8 +186,8 @@ Compare the "Areas of interest" lists — Home and Services have *similar but no
 
 Pick one master version (Services is more complete) and have Home reuse it verbatim. Or trim Home to high-level themes and let Services own the detail.
 
-### 🟠 HPCSA number — confirm it's correct
-Site shows `PS 0156052` everywhere. The HPCSA online register is searchable — worth a 10-second check that this is the right number (digits transposed = different practitioner). I have no way to verify; you/Fran do.
+### ~~🟠 HPCSA number — confirm it's correct~~
+Was `PS 0156052`; Fran confirmed the correct number is `PS 0156051` and the site has been updated.
 
 ### 🟡 "Suffering with" vs "suffering from"
 On About: *"…those suffering with a specific mental health problem…"*. Standard English is "suffering from". Both pass, but "from" is more idiomatic.
