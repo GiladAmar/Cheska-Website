@@ -252,14 +252,18 @@ p  { margin: 0 0 var(--space-2); }
   color: inherit;
   transition: background 200ms ease, color 200ms ease;
 }
-.btn:hover { background: currentColor; color: var(--c-cream); }
 
-.section--sage .btn { color: var(--c-cream); }
+/* per-section ghost-button hover: each section sets its own pair so the
+   colors are explicit instead of relying on currentColor evaluating before
+   the new color rule applies. */
+.section--sage .btn { color: var(--c-cream); border-color: var(--c-cream); }
 .section--sage .btn:hover { background: var(--c-cream); color: var(--c-sage-deep); }
-.section--rust .btn { color: var(--c-cream); }
+.section--rust .btn { color: var(--c-cream); border-color: var(--c-cream); }
 .section--rust .btn:hover { background: var(--c-cream); color: var(--c-rust-deep); }
-.section--rose .btn { color: var(--c-rust-deep); }
+.section--rose .btn { color: var(--c-rust-deep); border-color: var(--c-rust-deep); }
 .section--rose .btn:hover { background: var(--c-rust-deep); color: var(--c-cream); }
+.section--cream .btn { color: var(--c-ink); border-color: var(--c-ink); }
+.section--cream .btn:hover { background: var(--c-ink); color: var(--c-cream); }
 
 .btn--solid-sage {
   background: var(--c-sage);

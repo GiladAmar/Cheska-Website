@@ -265,7 +265,7 @@ If you ever wrap the menu link text in an icon or `<span>`, clicks on the inner 
 ### ~~🟡 README.md still describes the old workflow~~
 References mirror.js, clean.js, Squarespace stripping — none of which exist anymore. Either rewrite to "static site, edit HTML/CSS, deploy via GitHub Pages" or delete entirely.
 
-### 🟢 The CSS button hover trick relies on subtle `currentColor` evaluation
+### ~~🟢 The CSS button hover trick relies on subtle `currentColor` evaluation~~
 The pattern `.btn:hover { background: currentColor; color: var(--c-cream); }` works because both rules apply simultaneously and `currentColor` resolves before the new `color` is committed for `background`. It's correct but reads as if it should be invisible. A clearer pattern would set explicit per-section hover values without relying on the `currentColor` quirk.
 
 ### ~~🟢 Two adjacent `.btn:hover` rules~~
