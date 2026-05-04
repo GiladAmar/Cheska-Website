@@ -21,6 +21,8 @@ CNAME                   — custom-domain pointer for GitHub Pages
 
 It's plain HTML + CSS — open the file, make the change, commit, push. GitHub Pages serves the repo root.
 
+The header, footer, JSON-LD, and Google Fonts links are shared across pages via `partials/`. After editing anything in `partials/`, run `npm run build` to inject the changes into all pages. The build is idempotent and uses `<!-- include:NAME --> ... <!-- /include -->` markers in each page.
+
 For a quick local preview:
 
 ```bash

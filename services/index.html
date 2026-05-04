@@ -8,72 +8,77 @@
   <link rel="canonical" href="https://franamar.co.za/services/">
   <link rel="icon" href="/assets/img/logo.png">
   <meta name="theme-color" content="#fefdf8">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Allura&display=swap" rel="stylesheet">
+  <!-- include:head-fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Allura&display=swap" rel="stylesheet">
+<!-- /include -->
   <link rel="stylesheet" href="/assets/css/site.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Person",
-        "@id": "https://franamar.co.za/#fran",
-        "name": "Fran Amar",
-        "honorificSuffix": "MSocSci (Couns. Psych)",
-        "jobTitle": "Counselling Psychologist",
-        "image": "https://franamar.co.za/assets/img/fran-portrait.jpg",
-        "url": "https://franamar.co.za/about/",
-        "email": "psychologist@franamar.co.za",
-        "telephone": "+27722984829",
-        "identifier": {
-          "@type": "PropertyValue",
-          "propertyID": "HPCSA",
-          "value": "PS 0156052"
-        },
-        "worksFor": { "@id": "https://franamar.co.za/#practice" }
+  <!-- include:jsonld -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://franamar.co.za/#fran",
+      "name": "Fran Amar",
+      "honorificSuffix": "MSocSci (Couns. Psych)",
+      "jobTitle": "Counselling Psychologist",
+      "image": "https://franamar.co.za/assets/img/fran-portrait.jpg",
+      "url": "https://franamar.co.za/about/",
+      "email": "psychologist@franamar.co.za",
+      "telephone": "+27722984829",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "HPCSA",
+        "value": "PS 0156052"
       },
-      {
-        "@type": "Psychologist",
-        "@id": "https://franamar.co.za/#practice",
-        "name": "Fran Amar Psychotherapy",
-        "url": "https://franamar.co.za/",
-        "image": "https://franamar.co.za/assets/img/logo.png",
-        "telephone": "+27722984829",
-        "email": "psychologist@franamar.co.za",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Camps Bay Medical Practice, Cnr Camps Bay Drive & Victoria Road, Central Parade Building",
-          "addressLocality": "Camps Bay",
-          "addressRegion": "Western Cape",
-          "addressCountry": "ZA"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": -33.951298,
-          "longitude": 18.3830983
-        },
-        "openingHoursSpecification": [{
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"],
-          "opens": "08:00",
-          "closes": "15:00"
-        }],
-        "areaServed": [
-          { "@type": "City", "name": "Cape Town" },
-          { "@type": "Country", "name": "South Africa" }
-        ],
-        "founder": { "@id": "https://franamar.co.za/#fran" },
-        "employee": { "@id": "https://franamar.co.za/#fran" }
-      }
-    ]
-  }
-  </script>
+      "worksFor": { "@id": "https://franamar.co.za/#practice" }
+    },
+    {
+      "@type": "Psychologist",
+      "@id": "https://franamar.co.za/#practice",
+      "name": "Fran Amar Psychotherapy",
+      "url": "https://franamar.co.za/",
+      "image": "https://franamar.co.za/assets/img/logo.png",
+      "telephone": "+27722984829",
+      "email": "psychologist@franamar.co.za",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Camps Bay Medical Practice, Cnr Camps Bay Drive & Victoria Road, Central Parade Building",
+        "addressLocality": "Camps Bay",
+        "addressRegion": "Western Cape",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -33.951298,
+        "longitude": 18.3830983
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "15:00"
+      }],
+      "areaServed": [
+        { "@type": "City", "name": "Cape Town" },
+        { "@type": "Country", "name": "South Africa" }
+      ],
+      "founder": { "@id": "https://franamar.co.za/#fran" },
+      "employee": { "@id": "https://franamar.co.za/#fran" }
+    }
+  ]
+}
+</script>
+<!-- /include -->
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
+<!-- include:header -->
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="site-logo" href="/" aria-label="Fran Amar Psychotherapy — home">
@@ -92,9 +97,10 @@
 
 <nav id="mobile-menu" class="mobile-menu js-mobile-menu" aria-label="Mobile">
   <a href="/about/">About</a>
-  <a href="/services/">Services</a>
+  <a href="/services/" aria-current="page">Services</a>
   <a href="/contact/">Contact</a>
 </nav>
+<!-- /include -->
 
 <main id="main">
 
@@ -156,6 +162,7 @@
 
 </main>
 
+<!-- include:footer -->
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
@@ -181,6 +188,7 @@
     </div>
   </div>
 </footer>
+<!-- /include -->
 
 <script src="/assets/js/site.js" defer></script>
 

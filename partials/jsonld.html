@@ -1,0 +1,57 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://franamar.co.za/#fran",
+      "name": "Fran Amar",
+      "honorificSuffix": "MSocSci (Couns. Psych)",
+      "jobTitle": "Counselling Psychologist",
+      "image": "https://franamar.co.za/assets/img/fran-portrait.jpg",
+      "url": "https://franamar.co.za/about/",
+      "email": "psychologist@franamar.co.za",
+      "telephone": "+27722984829",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "HPCSA",
+        "value": "PS 0156052"
+      },
+      "worksFor": { "@id": "https://franamar.co.za/#practice" }
+    },
+    {
+      "@type": "Psychologist",
+      "@id": "https://franamar.co.za/#practice",
+      "name": "Fran Amar Psychotherapy",
+      "url": "https://franamar.co.za/",
+      "image": "https://franamar.co.za/assets/img/logo.png",
+      "telephone": "+27722984829",
+      "email": "psychologist@franamar.co.za",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Camps Bay Medical Practice, Cnr Camps Bay Drive & Victoria Road, Central Parade Building",
+        "addressLocality": "Camps Bay",
+        "addressRegion": "Western Cape",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -33.951298,
+        "longitude": 18.3830983
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "15:00"
+      }],
+      "areaServed": [
+        { "@type": "City", "name": "Cape Town" },
+        { "@type": "Country", "name": "South Africa" }
+      ],
+      "founder": { "@id": "https://franamar.co.za/#fran" },
+      "employee": { "@id": "https://franamar.co.za/#fran" }
+    }
+  ]
+}
+</script>

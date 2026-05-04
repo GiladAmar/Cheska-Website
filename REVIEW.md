@@ -240,7 +240,7 @@ Lots of `style="..."` attributes scattered through the HTML — `style="font-siz
 
 There are roughly 15 distinct inline patterns — consolidating them would shave ~80 lines across the four pages.
 
-### 🟠 ~70 lines of header/footer/JSON-LD duplicated 4× per page
+### ~~🟠 ~70 lines of header/footer/JSON-LD duplicated 4× per page~~
 Pure-static HTML can't `@include` partials, but options exist:
 - **Build step**: a 30-line Node script that reads `partials/header.html`, `partials/footer.html`, `partials/jsonld.html` and assembles each page. Run on commit. Outputs identical files; source is DRY.
 - **Server-side includes**: not available on GitHub Pages.
