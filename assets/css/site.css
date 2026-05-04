@@ -357,6 +357,11 @@ p  { margin: 0 0 var(--space-2); }
   display: block;
   filter: saturate(0.85);
 }
+.map__fallback {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  text-align: right;
+}
 
 /* ───── speech bubble ───── */
 .bubble {

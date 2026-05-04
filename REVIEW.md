@@ -340,7 +340,7 @@ Browser default validation pops a tooltip in browser-native styling. Acceptable,
 ### 🟡 No spam mitigation beyond honeypot
 If the contact form starts getting spam, Formspree's reCAPTCHA integration is a one-flag fix. No need to act now — just know where to look.
 
-### 🟢 Map iframe has no fallback
+### ~~🟢 Map iframe has no fallback~~
 If Google's embed service is blocked (corporate networks, some VPNs), the section shows a blank rectangle. A fallback link "View on Google Maps" + the practice address as alternate text would be graceful.
 
 ---
