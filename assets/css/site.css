@@ -11,7 +11,6 @@
   --c-sage:       #5d6f53;
   --c-sage-deep:  #42513a;
   --c-rose:       #dfb5a3;
-  --c-rose-soft:  #ecd2c5;
   --c-rust:       #a64019;
   --c-rust-deep:  #8a3514;
   --c-ink:        #2a2a2a;
@@ -21,7 +20,6 @@
   /* Type */
   --f-serif:  "Cormorant Garamond", "EB Garamond", Georgia, serif;
   --f-script: "Allura", "Great Vibes", cursive;
-  --f-sans:   -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
   /* Scale */
   --space-1:  .5rem;
@@ -71,6 +69,7 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
+main p a:not(.btn), main li a:not(.btn) { text-decoration: underline; text-underline-offset: 0.2em; }
 button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
 
 h1, h2, h3, h4 { font-weight: 500; line-height: 1.2; margin: 0 0 var(--space-2); letter-spacing: 0.01em; }
@@ -252,8 +251,7 @@ p  { margin: 0 0 var(--space-2); }
   color: inherit;
   transition: background 200ms ease, color 200ms ease;
 }
-.btn:hover { background: currentColor; }
-.btn:hover { color: var(--c-cream); }
+.btn:hover { background: currentColor; color: var(--c-cream); }
 
 .section--sage .btn { color: var(--c-cream); }
 .section--sage .btn:hover { background: var(--c-cream); color: var(--c-sage-deep); }
@@ -291,7 +289,7 @@ p  { margin: 0 0 var(--space-2); }
 }
 
 /* ───── form ───── */
-.form { display: grid; gap: var(--space-3); max-width: 38rem; }
+.form { display: grid; gap: var(--space-3); max-width: 38rem; position: relative; }
 .form__row {
   display: grid;
   grid-template-columns: 1fr;

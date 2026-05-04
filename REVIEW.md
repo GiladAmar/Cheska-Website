@@ -108,7 +108,7 @@ When you click the burger, the menu opens but keyboard focus stays on the burger
 ### ~~🟠 Mobile menu lacks `aria-hidden` toggling~~
 The `<nav id="mobile-menu">` is in the DOM at all times. When closed it's `visibility: hidden` which is correct for screen readers, but explicitly setting `aria-hidden="true"` on close (and removing on open) is more robust across assistive tech.
 
-### 🟡 Default link styling strips underlines globally
+### ~~🟡 Default link styling strips underlines globally~~
 `a { text-decoration: none; }` removes underlines from every link, including body text. The email and phone in the contact section are visually indistinguishable from regular text — only color (which is currently inherited and identical) hints they're links. Add a body-text-link rule:
 
 ```css
@@ -248,10 +248,10 @@ Pure-static HTML can't `@include` partials, but options exist:
 
 I'd recommend the build step the first time you change something footer-wide.
 
-### 🟡 Dead CSS variables
+### ~~🟡 Dead CSS variables~~
 `--c-rose-soft`, `--space-1`, `--f-sans` are declared but never referenced. Remove or use them.
 
-### 🟡 Honeypot relies on `position:absolute` from a non-positioned ancestor
+### ~~🟡 Honeypot relies on `position:absolute` from a non-positioned ancestor~~
 `.form .honey { position: absolute; left: -10000px; }` works *because* the form's ancestor `<body>` is positioned (in this case, just the document). If you ever wrap the form in a positioned container, the honeypot moves with it. Safer:
 
 ```css
@@ -268,7 +268,7 @@ References mirror.js, clean.js, Squarespace stripping — none of which exist an
 ### 🟢 The CSS button hover trick relies on subtle `currentColor` evaluation
 The pattern `.btn:hover { background: currentColor; color: var(--c-cream); }` works because both rules apply simultaneously and `currentColor` resolves before the new `color` is committed for `background`. It's correct but reads as if it should be invisible. A clearer pattern would set explicit per-section hover values without relying on the `currentColor` quirk.
 
-### 🟢 Two adjacent `.btn:hover` rules
+### ~~🟢 Two adjacent `.btn:hover` rules~~
 ```css
 .btn:hover { background: currentColor; }
 .btn:hover { color: var(--c-cream); }
