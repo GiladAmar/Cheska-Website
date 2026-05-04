@@ -1,67 +1,49 @@
-# franamar.co.za — GitHub Pages Migration
+# franamar.co.za
 
-Migrating from Squarespace to GitHub Pages. See `MIGRATION_SPEC.md` for the full plan.
+Static website for **Fran Amar Psychotherapy**, a Counselling Psychologist practice in Camps Bay, Cape Town. Hosted on GitHub Pages with the apex domain `franamar.co.za`.
 
-## How to complete the migration
+## Layout
 
-### Step 1 — Mirror the live site (run on your local machine)
+```
+index.html              — home
+about/index.html        — about Fran + therapeutic approach
+services/index.html     — services offered
+contact/index.html      — contact details + form
+404.html                — not-found page
+assets/css/site.css     — single stylesheet
+assets/js/site.js       — single script (mobile menu only)
+assets/img/             — photos and illustrations
+sitemap.xml, robots.txt — SEO basics
+CNAME                   — custom-domain pointer for GitHub Pages
+```
 
-The mirroring step must be run locally because Squarespace blocks cloud server IPs.
+## Editing
+
+It's plain HTML + CSS — open the file, make the change, commit, push. GitHub Pages serves the repo root.
+
+For a quick local preview:
 
 ```bash
-# Install dependencies (one-time)
+python3 -m http.server 8765
+# then open http://localhost:8765
+```
+
+## Contact form
+
+The contact form on `index.html` and `contact/index.html` posts to Formspree. The endpoint is in the `<form action>` attribute. Submissions are emailed to Fran via Formspree's notification settings.
+
+## Screenshots
+
+`scripts/screenshot.js`, `screenshot-local.js`, and `screenshot-menu.js` capture the live site, the local rebuild, and the mobile menu-open state respectively. They require Playwright:
+
+```bash
 npm install playwright
 npx playwright install chromium
-
-# Mirror the site
-node scripts/mirror.js
+node scripts/screenshot-local.js
 ```
 
-This saves the raw site to `./site/`.
+Output lands in `reference/` (gitignored).
 
-### Step 2 — Set your Formspree endpoint
+## Deployment
 
-1. Create a free account at https://formspree.io
-2. Create a new form project
-3. Copy the endpoint URL (looks like `https://formspree.io/f/xxxxxxxx`)
-4. Open `scripts/clean.js` and replace `REPLACE_ME` on line 11 with your endpoint
-
-### Step 3 — Clean Squarespace code
-
-```bash
-node scripts/clean.js
-```
-
-This strips Squarespace scripts, removes the cookie banner, rewires the contact form to Formspree, and copies all files to the repo root.
-
-### Step 4 — Commit and push
-
-```bash
-git add .
-git commit -m "Add migrated static site"
-git push
-```
-
-### Step 5 — Enable GitHub Pages
-
-In the GitHub repo settings → Pages:
-- Source: `main` branch, root folder
-- Custom domain: `franamar.co.za`
-- Enforce HTTPS: enabled
-
-### Step 6 — Update DNS (Domains.co.za)
-
-Remove the Squarespace A records. Add:
-
-```
-A    @    185.199.108.153
-A    @    185.199.109.153
-A    @    185.199.110.153
-A    @    185.199.111.153
-
-CNAME    www    giladamar.github.io.
-```
-
-### Step 7 — Verify, then cancel Squarespace
-
-See the verification checklist in `MIGRATION_SPEC.md`.
+Pushes to the default branch deploy automatically via GitHub Pages (Settings → Pages, source = repo root). DNS is managed at Domains.co.za with A records pointing at GitHub Pages' IPs and a `www` CNAME to `giladamar.github.io`.

@@ -262,7 +262,7 @@ I'd recommend the build step the first time you change something footer-wide.
 ### ~~🟡 `e.target.tagName === 'A'` is fragile~~
 If you ever wrap the menu link text in an icon or `<span>`, clicks on the inner element won't close the menu. Use `e.target.closest('a')` instead.
 
-### 🟡 README.md still describes the old workflow
+### ~~🟡 README.md still describes the old workflow~~
 References mirror.js, clean.js, Squarespace stripping — none of which exist anymore. Either rewrite to "static site, edit HTML/CSS, deploy via GitHub Pages" or delete entirely.
 
 ### 🟢 The CSS button hover trick relies on subtle `currentColor` evaluation
