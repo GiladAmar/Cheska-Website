@@ -17,7 +17,7 @@ A quick action summary lives at the bottom.
 
 I rebuilt and captured the live state at 1440 / 768 / 390 viewports plus the mobile menu-open state, then read each screenshot. Findings below either confirm code-review items visually or are *only* visible from rendered output.
 
-### 🔴 Mobile menu doesn't cover the header (z-index bug)
+### ~~🔴 Mobile menu doesn't cover the header (z-index bug)~~
 The screenshot of the menu-open state shows the cream `site-header` with full-size logo **floating above** the rose menu overlay — the rose only fills the area below the header. That's because:
 
 ```css
@@ -102,10 +102,10 @@ Keyboard users have to tab through every nav link on every page before reaching 
 
 CSS: position absolute off-screen, become visible on `:focus`.
 
-### 🟠 Mobile menu doesn't trap focus or move it
+### ~~🟠 Mobile menu doesn't trap focus or move it~~
 When you click the burger, the menu opens but keyboard focus stays on the burger button. Tabbing from there hits hidden header links behind the overlay. Best practice: when the menu opens, move focus to the first menu link; while open, trap Tab inside the menu; on close, return focus to the burger. About 15 lines of JS.
 
-### 🟠 Mobile menu lacks `aria-hidden` toggling
+### ~~🟠 Mobile menu lacks `aria-hidden` toggling~~
 The `<nav id="mobile-menu">` is in the DOM at all times. When closed it's `visibility: hidden` which is correct for screen readers, but explicitly setting `aria-hidden="true"` on close (and removing on open) is more robust across assistive tech.
 
 ### 🟡 Default link styling strips underlines globally
@@ -259,7 +259,7 @@ I'd recommend the build step the first time you change something footer-wide.
 .form .honey { position: absolute; left: -10000px; opacity: 0; }
 ```
 
-### 🟡 `e.target.tagName === 'A'` is fragile
+### ~~🟡 `e.target.tagName === 'A'` is fragile~~
 If you ever wrap the menu link text in an icon or `<span>`, clicks on the inner element won't close the menu. Use `e.target.closest('a')` instead.
 
 ### 🟡 README.md still describes the old workflow

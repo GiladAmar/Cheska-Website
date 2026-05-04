@@ -120,9 +120,12 @@ p  { margin: 0 0 var(--space-2); }
   visibility: hidden;
   opacity: 0;
   transition: opacity 200ms ease, visibility 200ms;
-  z-index: 40;
+  /* must sit above .site-header (z:50) so the rose covers the full viewport when open */
+  z-index: 60;
 }
 .menu-open .mobile-menu { visibility: visible; opacity: 1; }
+/* keep the burger reachable above the rose overlay */
+.menu-open .site-header { background: transparent; border-bottom-color: transparent; z-index: 70; }
 .mobile-menu a {
   font-family: var(--f-serif);
   font-size: 2rem;
