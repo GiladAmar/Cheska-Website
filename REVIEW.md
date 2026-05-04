@@ -293,7 +293,7 @@ The `<img src="/assets/img/logo.png" alt="...">` in the header has no dimensions
 ### ~~🟡 Google Fonts loaded externally with 4 weights/styles~~
 Cormorant Garamond is fetched in `400 italic`, `400 regular`, `500 italic`, `500 regular`. Audit which weights are actually used — likely only 2 of the 4. Self-hosting also saves a DNS+TLS round trip.
 
-### 🟡 No favicon set generated
+### ~~🟡 No favicon set generated~~
 `<link rel="icon" href="/assets/img/logo.png">` uses a 500×500 PNG (46 KB). Browsers downscale for the 16×16 favicon spot. Generate proper sizes:
 - `favicon.ico` (16×16, 32×32, 48×48 multi-res)
 - `apple-touch-icon.png` (180×180)
