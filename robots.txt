@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://franamar.co.za/sitemap.xml
