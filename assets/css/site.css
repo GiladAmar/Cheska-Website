@@ -36,6 +36,30 @@
 /* ───── reset & base ───── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+:focus-visible {
+  outline: 2px solid var(--c-rust);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  padding: 0.5rem 0.875rem;
+  background: var(--c-rust);
+  color: var(--c-cream);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
 body {
   margin: 0;
   font-family: var(--f-serif);
@@ -282,7 +306,7 @@ p  { margin: 0 0 var(--space-2); }
   margin-bottom: 0.35rem;
   letter-spacing: 0.02em;
 }
-.form label .req { opacity: .7; }
+.form label .req { font-size: 0.75rem; letter-spacing: 0.04em; }
 .form input, .form textarea {
   width: 100%;
   font: inherit;

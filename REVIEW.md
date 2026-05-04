@@ -91,7 +91,7 @@ Fix: change those eyebrow `<span>`s to `<h1>` and style with `.section__eyebrow`
 ### ~~🟠 Footer h4s without an h2/h3 above them~~
 Each page jumps from `h2` (or no h1) directly to `h4` in the footer. Heading levels should never skip. Either drop them to `<p class="footer-heading">` or up-level the `<h2>`/`<h3>` structure on each page.
 
-### 🟠 No skip-to-content link
+### ~~🟠 No skip-to-content link~~
 Keyboard users have to tab through every nav link on every page before reaching content. Add a hidden-until-focused skip link as the first focusable element:
 
 ```html
@@ -118,17 +118,17 @@ main p a, main li a { text-decoration: underline; text-underline-offset: 0.2em; 
 ### 🟡 Hero text contrast varies with the wave image
 `Fran Amar` and the script tagline sit over a JPEG. The current 5%–15% overlay gradient is too subtle. Bright wave-crest pixels behind the text fail contrast. Either deepen the overlay (15%–35%) or shift the text to a panel background.
 
-### 🟡 No `:focus-visible` styling
+### ~~🟡 No `:focus-visible` styling~~
 Browsers provide default focus rings, but they're inconsistent (Chrome ≠ Safari ≠ Firefox) and can disappear on some elements with custom styling. Add a single explicit rule:
 
 ```css
 :focus-visible { outline: 2px solid var(--c-rust); outline-offset: 2px; }
 ```
 
-### 🟡 The "(required)" label uses opacity 0.7
+### ~~🟡 The "(required)" label uses opacity 0.7~~
 That dims the contrast of an important indicator. Use full opacity and a smaller font size, or rely on the `*` convention with full contrast.
 
-### 🟢 The hamburger animation has no `prefers-reduced-motion` respect
+### ~~🟢 The hamburger animation has no `prefers-reduced-motion` respect~~
 Add a single block:
 
 ```css
