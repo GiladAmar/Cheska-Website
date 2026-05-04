@@ -53,13 +53,13 @@ Worth opening `index.html` in a real browser and confirming the iframe actually 
 ### ~~🟠 Cream-on-sage contrast failure — visually confirmed~~
 In `desktop/home.png` the body copy of the About preview band reads as faint cream-on-sage. From a reading-distance glance the paragraph blurs into the background. This is the same item flagged in §1 by ratio (2.89:1) — the screenshot makes it concrete.
 
-### 🟡 Home "Available Services" band is empty-looking
+### ~~🟡 Home "Available Services" band is empty-looking~~
 In `desktop/home.png` the sage Available Services band is: tiny script title + one italic line + a single button. It reads as filler between the heavier rust and rose sections. Reinforces the design note in §7 — either add bullets, or merge into a richer offerings block.
 
-### 🟡 Areas-of-Interest illustration is small relative to the band
+### ~~🟡 Areas-of-Interest illustration is small relative to the band~~
 The book illustration on the rust band sits in the right column but renders much smaller than the bullet list to its left, leaving visual dead space below it. Either scale it up (320 → ~480 px) or move it to a corner motif.
 
-### 🟡 Send button on contact form blends into the rust section
+### ~~🟡 Send button on contact form blends into the rust section~~
 On the home page contact band, the rust background + sage button works. On the dedicated `/contact/` page (rose band) the sage button is fine. On both, the button label "Send" / "SEND" is very small relative to the form fields. Consider sizing up to 1.1rem and adding hover affordance.
 
 ### 🟢 Mobile, tablet, and desktop layouts all hold together
