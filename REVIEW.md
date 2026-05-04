@@ -50,7 +50,7 @@ On `desktop/home.png` the "In-person and online options" rose band is text-only 
 
 Worth opening `index.html` in a real browser and confirming the iframe actually displays. If it does, this is a screenshot-tooling artifact and not a real bug. If it doesn't, fall back to a static map image with a "View on Google Maps" link (which also addresses §6's "no fallback" note).
 
-### 🟠 Cream-on-sage contrast failure — visually confirmed
+### ~~🟠 Cream-on-sage contrast failure — visually confirmed~~
 In `desktop/home.png` the body copy of the About preview band reads as faint cream-on-sage. From a reading-distance glance the paragraph blurs into the background. This is the same item flagged in §1 by ratio (2.89:1) — the screenshot makes it concrete.
 
 ### 🟡 Home "Available Services" band is empty-looking
@@ -69,7 +69,7 @@ No broken stacking, no overflow, no horizontal scroll. The two-column `cols` col
 
 ## 1. Accessibility & semantics
 
-### 🔴 Color contrast fails WCAG AA on two key sections
+### ~~🔴 Color contrast fails WCAG AA on two key sections~~
 I computed the actual contrast ratios:
 
 | Combination | Used on | Ratio | WCAG AA |
@@ -83,7 +83,7 @@ This affects **every page**. The cream-on-sage problem is the worst — it's the
 
 Fix: darken sage to roughly `#6f8267` (already in your palette as `--c-sage-deep`) for backgrounds where cream text sits on top, OR change the body text on sage from cream to a near-black ink. Either change is one line in `site.css`.
 
-### 🔴 About and Services pages have no `<h1>`
+### ~~🔴 About and Services pages have no `<h1>`~~
 Both pages use a `<span class="section__eyebrow">` for the page title ("About", "Services Offered"). To Google and screen readers, neither page has a primary heading at all. The first heading they see is "Meet Fran" / "Individual Psychotherapy" as `<h2>` — so the heading tree is broken (h2 with no h1 above).
 
 Fix: change those eyebrow `<span>`s to `<h1>` and style with `.section__eyebrow` (CSS doesn't care about the tag). Five-second change, big SEO/a11y win.

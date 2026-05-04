@@ -6,8 +6,10 @@
 :root {
   /* Palette */
   --c-cream:      #fefdf8;
-  --c-sage:       #8a9d80;
-  --c-sage-deep:  #6f8267;
+  /* sage values are deeper than the original brand tone so cream-on-sage
+     clears WCAG AA (4.5:1). Was #8a9d80 / #6f8267 — 2.89:1, failed. */
+  --c-sage:       #5d6f53;
+  --c-sage-deep:  #42513a;
   --c-rose:       #dfb5a3;
   --c-rose-soft:  #ecd2c5;
   --c-rust:       #a64019;
