@@ -198,7 +198,7 @@ Prefer one of these patterns:
 - Show a styled image or simplified map graphic.
 - Link out to Google Maps only when the visitor chooses to click.
 
-2. Address card without map
+1. Address card without map
 - Show the address and accessibility note.
 - Provide a "Directions" or "Open in Maps" link.
 

@@ -11,6 +11,9 @@ const PAGES = [
   { slug: 'about', path: '/about/' },
   { slug: 'services', path: '/services/' },
   { slug: 'contact', path: '/contact/' },
+  { slug: 'privacy', path: '/privacy/' },
+  { slug: 'thanks', path: '/thanks/' },
+  { slug: '404', path: '/404.html' },
 ];
 const VPS = [
   { name: 'desktop', width: 1440, height: 900 },

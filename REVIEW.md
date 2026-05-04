@@ -15,55 +15,34 @@ A quick action summary lives at the bottom.
 
 ## 0. Visual review (from fresh screenshots)
 
-I rebuilt and captured the live state at 1440 / 768 / 390 viewports plus the mobile menu-open state, then read each screenshot. Findings below either confirm code-review items visually or are *only* visible from rendered output.
+Captured the rebuild at 1440 / 768 / 390 viewports plus the mobile menu-open state and re-read each frame. Most items previously flagged here have been addressed; what's left below is either the visual confirmation or a residual item still worth doing.
 
 ### ~~🔴 Mobile menu doesn't cover the header (z-index bug)~~
-The screenshot of the menu-open state shows the cream `site-header` with full-size logo **floating above** the rose menu overlay — the rose only fills the area below the header. That's because:
+**Confirmed fixed.** `mobile/menu-open.png` now shows the rose overlay filling the viewport with the cream logo + close `×` floating above it (header background goes transparent when menu is open).
 
-```css
-.site-header  { z-index: 50; }
-.mobile-menu  { z-index: 40; }   /* lower → header sits on top */
-```
-
-The intent (per the rebuild brief) was a full-screen overlay. Today the menu is a "drawer below the header", and the oversized logo competes visually with the menu links. Two-line fix:
-
-```css
-.mobile-menu.is-open { z-index: 60; }      /* or simply raise base z-index */
-body.menu-open .site-header { background: transparent; }
-```
-
-Or restructure so the menu owns its own close button (the `×` icon already exists in the screenshot — make sure it's the only header element visible when open).
-
-### ~~🟠 Header logo is oversized on desktop~~
-On `desktop/contact.png` the header logo renders at roughly 165 × 165 px square, dwarfing the three nav links to its right. The asset is `logo.png` at 500×500 with `max-width: 11rem` — on a wide viewport it hits its max and looks like a logo block, not a wordmark. Options:
-- Cap it harder: `max-width: 7rem` and `height: auto`.
-- Crop a horizontal lockup variant for the header (logo + script wordmark beside, not stacked) and keep the square version for the footer.
-- Set explicit `width="140" height="140"` on the `<img>` so it doesn't drift with viewport size.
-
-This also fixes the no-dimensions / CLS issue flagged in §5.
-
-### 🟠 Map iframe is not visible on the home page
-On `desktop/home.png` the "In-person and online options" rose band is text-only — no map renders even though `index.html:176-182` does have a `<iframe class="map-frame" src="…maps?q=Camps+Bay+Medical+Practice…">`. Likely causes, in order of probability:
-1. The iframe loads asynchronously and Playwright's `networkidle` was satisfied before Google's embed finished.
-2. The aspect-ratio rule is collapsing the frame to zero height in some condition.
-3. Ad/tracking blocker behavior in headless Chromium.
-
-Worth opening `index.html` in a real browser and confirming the iframe actually displays. If it does, this is a screenshot-tooling artifact and not a real bug. If it doesn't, fall back to a static map image with a "View on Google Maps" link (which also addresses §6's "no fallback" note).
-
-### ~~🟠 Cream-on-sage contrast failure — visually confirmed~~
-In `desktop/home.png` the body copy of the About preview band reads as faint cream-on-sage. From a reading-distance glance the paragraph blurs into the background. This is the same item flagged in §1 by ratio (2.89:1) — the screenshot makes it concrete.
+### ~~🔴 Cream-on-sage contrast failure~~
+**Confirmed fixed.** `--c-sage` darkened to `#5d6f53`; body text in the About preview and "Available Services" bands reads cleanly cream-on-sage at reading distance.
 
 ### ~~🟡 Home "Available Services" band is empty-looking~~
-In `desktop/home.png` the sage Available Services band is: tiny script title + one italic line + a single button. It reads as filler between the heavier rust and rose sections. Reinforces the design note in §7 — either add bullets, or merge into a richer offerings block.
+**Confirmed fixed.** Bulleted offerings ("For adults · In-person or via video · Mon · Tue · Thu · Fri 8:00–15:00") plus the chair illustration now fill the band.
 
 ### ~~🟡 Areas-of-Interest illustration is small relative to the band~~
-The book illustration on the rust band sits in the right column but renders much smaller than the bullet list to its left, leaving visual dead space below it. Either scale it up (320 → ~480 px) or move it to a corner motif.
+**Confirmed fixed.** Book illustration scaled 320 → 480 px and balances the bullet column on desktop; on mobile it flows beneath the list (acceptable).
 
 ### ~~🟡 Send button on contact form blends into the rust section~~
-On the home page contact band, the rust background + sage button works. On the dedicated `/contact/` page (rose band) the sage button is fine. On both, the button label "Send" / "SEND" is very small relative to the form fields. Consider sizing up to 1.1rem and adding hover affordance.
+**Confirmed fixed.** Larger label (1.05rem), 2px border, cream stroke when on rust — visible across home and contact captures.
+
+### ~~🟠 Header logo is oversized on desktop~~
+**Fixed.** Tightened to `max-width: 5.5rem` (mobile) / `6rem` (desktop ≈ 96 px); the `<img>` keeps its 500×500 attrs for aspect-ratio reservation (CLS). Confirmed in fresh `desktop/contact.png` — logo now sits in proportion with the three nav links.
+
+### 🟢 Map iframe — fallback in place; embed may need a real browser to verify
+The map iframe element renders at 504 × 378 px in the layout (confirmed via Playwright's bounding-rect), but Google's embed content does not paint in headless Chromium even with a 5 s wait — likely a Maps anti-bot heuristic. The "View on Google Maps →" fallback link is visible in every capture, so visitors on locked-down networks aren't blocked. Worth opening the home page in Safari/Chrome once to confirm the live map paints; if it doesn't, swap to a static screenshot of the map.
+
+### ~~🟡 Hero wordmark contrast vs wave~~
+**Fixed.** Bumped the hero overlay from 5 %–15 % to a uniform 18 %–28 % black gradient. The wave is now visibly muted in fresh captures and the wordmark sits comfortably above the AA floor on bright crest pixels.
 
 ### 🟢 Mobile, tablet, and desktop layouts all hold together
-No broken stacking, no overflow, no horizontal scroll. The two-column `cols` collapses sensibly at 768px. The hero image renders correctly at all three viewports. This is a strong baseline — most of the issues above are polish, not structural breakage.
+No broken stacking, no overflow, no horizontal scroll. Two-column `cols` collapses sensibly at 768 px. Hero image renders correctly at all three viewports. Privacy and 404 pages render cleanly; thanks page is short and tidy.
 
 ---
 
@@ -72,12 +51,12 @@ No broken stacking, no overflow, no horizontal scroll. The two-column `cols` col
 ### ~~🔴 Color contrast fails WCAG AA on two key sections~~
 I computed the actual contrast ratios:
 
-| Combination | Used on | Ratio | WCAG AA |
-|---|---|---|---|
-| Cream text on sage `#8a9d80` | Home About preview, home Available Services, About page Meet Fran + Therapeutic Approach | **2.89 : 1** | ❌ Fail (need 4.5) |
-| Rust-deep text on rose `#dfb5a3` | Home In-person section, Contact page body | **4.19 : 1** | ❌ Borderline fail |
-| Cream text on rust `#a64019` | Home Areas of Interest, home Contact form | 6.12 : 1 | ✅ Pass |
-| Ink-soft on cream | Footer | 8.5 : 1 | ✅ Pass |
+| Combination                      | Used on                                                                                  | Ratio        | WCAG AA           |
+|----------------------------------|------------------------------------------------------------------------------------------|--------------|-------------------|
+| Cream text on sage `#8a9d80`     | Home About preview, home Available Services, About page Meet Fran + Therapeutic Approach | **2.89 : 1** | ❌ Fail (need 4.5) |
+| Rust-deep text on rose `#dfb5a3` | Home In-person section, Contact page body                                                | **4.19 : 1** | ❌ Borderline fail |
+| Cream text on rust `#a64019`     | Home Areas of Interest, home Contact form                                                | 6.12 : 1     | ✅ Pass            |
+| Ink-soft on cream                | Footer                                                                                   | 8.5 : 1      | ✅ Pass            |
 
 This affects **every page**. The cream-on-sage problem is the worst — it's the dominant body-text combination on the home and About pages.
 
@@ -142,7 +121,7 @@ Add a single block:
 ## 2. SEO
 
 ### ~~🟠 No Open Graph / Twitter Card metadata~~
-Per-page `og:url`, `og:title`, `og:description` are now in each `<head>`; the rest (`og:type`, `og:site_name`, `og:locale`, `og:image`, `twitter:card`) is shared via `partials/og-shared.html`. The image points at `fran-portrait-framed.png` (500×500, square), so Twitter is set to `summary` rather than `summary_large_image`. **Still nice-to-have:** a designed 1200×630 OG card on the cream/rose palette would unlock the larger Twitter card and look better in WhatsApp/LinkedIn previews — drop it at `assets/img/og-card.jpg` and update `partials/og-shared.html` accordingly.
+Per-page `og:url`, `og:title`, `og:description` are now in each `<head>`; the rest (`og:type`, `og:site_name`, `og:locale`, `og:image`, `twitter:card`) is shared via `partials/og-shared.html`. A 1200×630 card has been generated at `assets/img/og-card.jpg` (cream background, sage rail, logo + tagline + portrait) by `scripts/make-og-card.py`, and `twitter:card` is bumped to `summary_large_image`. To regenerate after tweaking the layout: `python3 scripts/make-og-card.py`.
 
 ### ~~🟠 No `<link rel="canonical">` on any page~~
 Helps prevent duplicate-content issues if Google ever crawls the GitHub Pages preview URL too. One line per page:
@@ -178,11 +157,11 @@ Only relevant if you add site search later. Skip for now.
 ### 🟠 Inconsistent wording between Home and Services list
 Compare the "Areas of interest" lists — Home and Services have *similar but not identical* item wording:
 
-| Home | Services |
-|---|---|
-| Eating disorders **and** disordered eating | Eating disorders**,** and disordered eating |
-| Adjustment to chronic illness diagnoses | Adjustment to life changes, especially chronic illness diagnoses (e.g. diabetes and auto-immune disorders) |
-| Affirming care for the LGBTQIA+ community | Affirming care for clients **from** the LGBTQIA+ community |
+| Home                                       | Services                                                                                                   |
+|--------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| Eating disorders **and** disordered eating | Eating disorders**,** and disordered eating                                                                |
+| Adjustment to chronic illness diagnoses    | Adjustment to life changes, especially chronic illness diagnoses (e.g. diabetes and auto-immune disorders) |
+| Affirming care for the LGBTQIA+ community  | Affirming care for clients **from** the LGBTQIA+ community                                                 |
 
 Pick one master version (Services is more complete) and have Home reuse it verbatim. Or trim Home to high-level themes and let Services own the detail.
 
@@ -219,11 +198,11 @@ South Africa's POPIA law applies to handling personal information, including via
 ### ~~🟠 Significant inline styling~~
 Lots of `style="..."` attributes scattered through the HTML — `style="font-size:clamp(...)"`, `style="margin-top:var(--space-3)"`, `style="border-color:rgba(255,255,255,0.25)"`, etc. They duplicate or override `site.css` and force you to edit four HTML files instead of one stylesheet to make a design tweak. Promote each to a class:
 
-| Inline | Suggested class |
-|---|---|
-| `style="font-weight:400; margin-bottom:var(--space-4)"` (h2 inside sage) | `.section-heading` |
-| `style="margin-inline:auto"` on img | `.center-img` |
-| `style="border-bottom:1px solid currentColor; padding-bottom:2px"` on link | `.link-underline` |
+| Inline                                                                     | Suggested class    |
+|----------------------------------------------------------------------------|--------------------|
+| `style="font-weight:400; margin-bottom:var(--space-4)"` (h2 inside sage)   | `.section-heading` |
+| `style="margin-inline:auto"` on img                                        | `.center-img`      |
+| `style="border-bottom:1px solid currentColor; padding-bottom:2px"` on link | `.link-underline`  |
 
 There are roughly 15 distinct inline patterns — consolidating them would shave ~80 lines across the four pages.
 
@@ -274,12 +253,12 @@ Resized 1500×2247 → 1068×1600 at JPEG q80 (sips). 287KB → 242KB. Original 
 Originals stashed at `assets/img/originals/` for safety. Tried sips bicubic resize: it actually grew the files (44-58KB → 45-74KB) because line-art PNGs lose their sharp-edge entropy advantage. macOS doesn't ship `pngquant`/`oxipng`/`pngcrush`, so a real shrink needs one of those installed (or squoosh.app, or an SVG redraw). At 44-58KB each they're not catastrophic — just not as small as they could be.
 Rendered widths in the page vs. asset widths:
 
-| Image | Rendered | Source | Wasted |
-|---|---|---|---|
-| `illus-figure-sage.png` | ~220 px | 1188 px | 5.4× over |
-| `lgbtq-bubble.png` | ~224 px | 1080 px | 4.8× over |
-| `illus-flowers-head.png` | ~320 px | 563 px | 1.8× over |
-| `illus-book.png` | ~320 px | 500 px | 1.6× over |
+| Image                    | Rendered | Source  | Wasted    |
+|--------------------------|----------|---------|-----------|
+| `illus-figure-sage.png`  | ~220 px  | 1188 px | 5.4× over |
+| `lgbtq-bubble.png`       | ~224 px  | 1080 px | 4.8× over |
+| `illus-flowers-head.png` | ~320 px  | 563 px  | 1.8× over |
+| `illus-book.png`         | ~320 px  | 500 px  | 1.6× over |
 
 Two strategies, ranked by effort vs. reward:
 1. **SVG redraw** (best) — these are line drawings. Re-export as SVG and they become 5–10 KB each, scale infinitely, and stay crisp on retina screens. ~1 hr of designer time to redraw any 4 of them.
@@ -399,13 +378,13 @@ GitHub Pages is highly reliable but not 100%. Free options like UptimeRobot ping
 
 If you have **30 minutes**:
 
-1. **Verify the home-page map iframe renders** in a real browser. _2 min_
-2. **Design a 1200×630 OG card** and swap it into `partials/og-shared.html` (current image is the 500×500 framed portrait). _15 min_
+1. **Open the home page in Safari/Chrome** and confirm the Google Maps embed paints. If it doesn't, swap to a static map screenshot. _2 min_
+2. **Eyeball the new OG card** in the Facebook / Twitter / LinkedIn debuggers to make sure it reads cleanly at preview size. _5 min_
 
 If you have **half a day**:
 
-3. Resize/re-export images (PNGs to 600px max, hero to ≤1600×1000, optionally SVG line art).
-4. Add a privacy notice and update form copy to reference it.
+1. Re-export the line-art PNGs as SVG (or run them through pngquant/squoosh) — they're still ~5× larger than the rendered size needs.
+2. Reconcile the home vs services "Areas of interest" wording (§3) so they don't drift.
 
 If you have **a day**:
 
