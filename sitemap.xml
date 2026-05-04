@@ -25,3 +25,6 @@
     <priority>0.7</priority>
   </url>
 </urlset>
+<!-- /thanks/ is intentionally not listed: it's a post-submit landing
+     and carries <meta name="robots" content="noindex"> -->
+

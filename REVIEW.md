@@ -327,7 +327,7 @@ Currently `display=swap` — readable text appears immediately in fallback font,
 
 ## 6. Forms & integrations
 
-### 🟠 Form submission redirects to Formspree's domain after success
+### ~~🟠 Form submission redirects to Formspree's domain after success~~
 After clicking Send, the visitor lands on `formspree.io/thanks` rather than a friendly success message on franamar.co.za. Two options:
 1. Add a `_next` hidden field: `<input type="hidden" name="_next" value="https://franamar.co.za/thanks/">`, then create `/thanks/index.html` with a "thank you, Fran will be in touch within 2 working days" message.
 2. Submit via fetch and show an inline success state without leaving the page (~30 lines of JS).
