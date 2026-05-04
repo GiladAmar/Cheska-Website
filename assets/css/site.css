@@ -78,7 +78,8 @@ p  { margin: 0 0 var(--space-2); }
   gap: var(--space-3);
   padding-block: var(--space-2);
 }
-.site-logo { display: block; max-width: 11rem; }
+.site-logo { display: block; width: 6rem; }
+@media (min-width: 768px) { .site-logo { width: 7rem; } }
 .site-logo img { width: 100%; height: auto; }
 
 .nav-desktop { display: none; }
@@ -343,7 +344,7 @@ p  { margin: 0 0 var(--space-2); }
     gap: var(--space-4);
   }
 }
-.site-footer h4 {
+.site-footer .footer-heading {
   font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: 0.04em;

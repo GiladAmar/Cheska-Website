@@ -34,7 +34,7 @@ body.menu-open .site-header { background: transparent; }
 
 Or restructure so the menu owns its own close button (the `×` icon already exists in the screenshot — make sure it's the only header element visible when open).
 
-### 🟠 Header logo is oversized on desktop
+### ~~🟠 Header logo is oversized on desktop~~
 On `desktop/contact.png` the header logo renders at roughly 165 × 165 px square, dwarfing the three nav links to its right. The asset is `logo.png` at 500×500 with `max-width: 11rem` — on a wide viewport it hits its max and looks like a logo block, not a wordmark. Options:
 - Cap it harder: `max-width: 7rem` and `height: auto`.
 - Crop a horizontal lockup variant for the header (logo + script wordmark beside, not stacked) and keep the square version for the footer.
@@ -88,7 +88,7 @@ Both pages use a `<span class="section__eyebrow">` for the page title ("About", 
 
 Fix: change those eyebrow `<span>`s to `<h1>` and style with `.section__eyebrow` (CSS doesn't care about the tag). Five-second change, big SEO/a11y win.
 
-### 🟠 Footer h4s without an h2/h3 above them
+### ~~🟠 Footer h4s without an h2/h3 above them~~
 Each page jumps from `h2` (or no h1) directly to `h4` in the footer. Heading levels should never skip. Either drop them to `<p class="footer-heading">` or up-level the `<h2>`/`<h3>` structure on each page.
 
 ### 🟠 No skip-to-content link
@@ -300,7 +300,7 @@ Two strategies, ranked by effort vs. reward:
 1. **SVG redraw** (best) — these are line drawings. Re-export as SVG and they become 5–10 KB each, scale infinitely, and stay crisp on retina screens. ~1 hr of designer time to redraw any 4 of them.
 2. **Resize PNGs** to 600×600 max and run through a compressor (squoosh.app). Easy, ~10 minutes, ~80% file-size reduction.
 
-### 🟡 No `width`/`height` on header/footer logo `<img>`
+### ~~🟡 No `width`/`height` on header/footer logo `<img>`~~
 The `<img src="/assets/img/logo.png" alt="...">` in the header has no dimensions. Browser doesn't reserve space until the image loads, so the page reflows after first paint (Cumulative Layout Shift). Add `width="180" height="180"` or whatever the rendered size is.
 
 ### 🟡 Google Fonts loaded externally with 4 weights/styles
