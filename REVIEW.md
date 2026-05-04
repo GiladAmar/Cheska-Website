@@ -410,31 +410,20 @@ GitHub Pages is highly reliable but not 100%. Free options like UptimeRobot ping
 
 ---
 
-## 10. Quick wins — top-10 ordered
+## 10. Quick wins — what's left
 
-If you have **30 minutes**, do these in order:
+If you have **30 minutes**:
 
-1. **Fix mobile menu z-index** so it covers the header (one-line CSS). _2 min_
-2. **Change `<span>` page titles to `<h1>`** on About and Services. _2 min_
-3. **Fix cream-on-sage contrast** by darkening the sage background. _5 min_
-4. **Cap header logo size** (`max-width: 7rem` + explicit width/height attrs). _3 min_
-5. **Add Open Graph meta tags** + create one OG card image. _15 min_
-6. **Add canonical link** to all four pages. _3 min_
-7. **Remove `medicalSpecialty: "Psychiatric"`** from JSON-LD. _2 min_
-8. **Verify the home-page map iframe renders** in a real browser. _2 min_
-9. **Rewrite README.md** to reflect the static site. _5 min_
+1. **Add Open Graph meta tags** + create one OG card image. _15 min_
+2. **Verify the home-page map iframe renders** in a real browser. _2 min_
 
-If you have **half a day**, also:
+If you have **half a day**:
 
-10. Add skip-to-content link + focus-visible styles + reduced-motion respect.
-11. Resize/re-export images (PNGs to 600px max, hero to ≤1600×1000, optionally SVG line art).
-12. Add a `/thanks/` page and Formspree `_next` redirect.
-13. Add a privacy notice and update form copy to reference it.
+3. Resize/re-export images (PNGs to 600px max, hero to ≤1600×1000, optionally SVG line art).
+4. Add a privacy notice and update form copy to reference it.
 
 If you have **a day**:
 
-- Promote inline styles to CSS classes
-- Build a simple include system for header/footer/JSON-LD partials
 - Audit content per `DESIGN_NOTES.md` and decide what to act on
 - Add Cloudflare Web Analytics
 - Do a real Lighthouse / Wave / axe audit and act on findings
