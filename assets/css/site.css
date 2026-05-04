@@ -165,7 +165,7 @@ p  { margin: 0 0 var(--space-2); }
 /* ───── hero ───── */
 .hero {
   position: relative;
-  min-height: 70vh;
+  min-height: clamp(420px, 60vh, 720px);
   display: grid;
   place-items: center;
   text-align: center;
@@ -301,6 +301,9 @@ p  { margin: 0 0 var(--space-2); }
 
 /* ───── form ───── */
 .form { display: grid; gap: var(--space-3); max-width: 38rem; position: relative; }
+.form--wide { max-width: none; }
+.contact-meta { margin-bottom: var(--space-4); }
+.contact-meta p { margin-bottom: var(--space-2); }
 .form__row {
   display: grid;
   grid-template-columns: 1fr;

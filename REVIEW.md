@@ -348,11 +348,11 @@ These were already noted in `DESIGN_NOTES.md` and remain unactioned per your ins
 
 No need to repeat — `DESIGN_NOTES.md` is the canonical list for those.
 
-### 🟡 New visual notes I noticed during code review
-- The hero `min-height: 70vh` plus sticky header means on short laptops the hero crowds the viewport. Try `min-height: clamp(420px, 60vh, 720px)`.
-- The home Available Services section is just a centered chair illustration + one line + button. Visually thin. Either add the offering bullets (per design notes) or merge into the previous sage section with a sub-grid.
-- The footer logo (small) and the header logo (larger) are the same PNG. Different visual roles deserve a different crop / treatment — header could use a horizontal "FRAN AMAR · Counselling Psychologist" inline lockup; footer keeps the full mark.
-- On the contact page, the form takes up ~70% of the band's visual weight while the address text takes 30%. Consider equal columns or putting the address above and a wider form below.
+### 🟡 New visual notes I noticed during code review (mostly done)
+- ~~Hero `min-height: 70vh` crowds short laptops~~ — now `clamp(420px, 60vh, 720px)`.
+- ~~Home Available Services section visually thin~~ — added three offering bullets + larger illustration.
+- The footer logo (small) and the header logo (larger) are the same 500×500 PNG. Different visual roles deserve a different crop / treatment — header could use a horizontal "FRAN AMAR · Counselling Psychologist" inline lockup; footer keeps the full mark. **Still open** — needs design work (new artwork variant), not just code.
+- ~~Contact page form vs address weight~~ — restructured to address-above, full-width form below.
 
 ---
 
