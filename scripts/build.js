@@ -28,7 +28,7 @@ const PAGES = [
   { src: 'thanks/index.html',   currentPath: null },        // optional, only if it exists
 ];
 
-const PARTIALS = ['header', 'footer', 'jsonld', 'head-fonts'];
+const PARTIALS = ['header', 'footer', 'jsonld', 'head-fonts', 'og-shared'];
 
 const partialContent = Object.fromEntries(
   PARTIALS.map((name) => {

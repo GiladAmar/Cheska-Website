@@ -141,20 +141,8 @@ Add a single block:
 
 ## 2. SEO
 
-### 🟠 No Open Graph / Twitter Card metadata
-Right now if anyone shares a page on WhatsApp, Facebook, LinkedIn, or Twitter/X, the preview is bare. Add to each page's `<head>`:
-
-```html
-<meta property="og:type" content="website">
-<meta property="og:title" content="…">
-<meta property="og:description" content="…">
-<meta property="og:url" content="https://franamar.co.za/…">
-<meta property="og:image" content="https://franamar.co.za/assets/img/og-card.jpg">
-<meta property="og:locale" content="en_ZA">
-<meta name="twitter:card" content="summary_large_image">
-```
-
-You'll need a 1200×630 OG card image — Fran's portrait + name + tagline laid out on the cream/rose palette.
+### ~~🟠 No Open Graph / Twitter Card metadata~~
+Per-page `og:url`, `og:title`, `og:description` are now in each `<head>`; the rest (`og:type`, `og:site_name`, `og:locale`, `og:image`, `twitter:card`) is shared via `partials/og-shared.html`. The image points at `fran-portrait-framed.png` (500×500, square), so Twitter is set to `summary` rather than `summary_large_image`. **Still nice-to-have:** a designed 1200×630 OG card on the cream/rose palette would unlock the larger Twitter card and look better in WhatsApp/LinkedIn previews — drop it at `assets/img/og-card.jpg` and update `partials/og-shared.html` accordingly.
 
 ### ~~🟠 No `<link rel="canonical">` on any page~~
 Helps prevent duplicate-content issues if Google ever crawls the GitHub Pages preview URL too. One line per page:
@@ -414,8 +402,8 @@ GitHub Pages is highly reliable but not 100%. Free options like UptimeRobot ping
 
 If you have **30 minutes**:
 
-1. **Add Open Graph meta tags** + create one OG card image. _15 min_
-2. **Verify the home-page map iframe renders** in a real browser. _2 min_
+1. **Verify the home-page map iframe renders** in a real browser. _2 min_
+2. **Design a 1200×630 OG card** and swap it into `partials/og-shared.html` (current image is the 500×500 framed portrait). _15 min_
 
 If you have **half a day**:
 
