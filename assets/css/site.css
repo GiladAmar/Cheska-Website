@@ -328,6 +328,16 @@ p  { margin: 0 0 var(--space-2); }
   outline-offset: 2px;
 }
 .form .honey { position: absolute; left: -10000px; opacity: 0; }
+.form input[aria-invalid="true"],
+.form textarea[aria-invalid="true"] { border-color: var(--c-rust-deep); border-width: 2px; }
+.form__error {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--c-rust-deep);
+}
+.section--rust .form__error,
+.section--rust .form input[aria-invalid="true"],
+.section--rust .form textarea[aria-invalid="true"] { color: var(--c-cream); border-color: var(--c-cream); }
 .form button[type="submit"] {
   justify-self: start;
   background: var(--c-sage);

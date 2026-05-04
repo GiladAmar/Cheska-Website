@@ -334,7 +334,7 @@ After clicking Send, the visitor lands on `formspree.io/thanks` rather than a fr
 
 Option 1 is simpler and doesn't require JS. I'd start there.
 
-### 🟡 No client-side validation messaging
+### ~~🟡 No client-side validation messaging~~
 Browser default validation pops a tooltip in browser-native styling. Acceptable, but a designed "this field is required" inline message reads more polished.
 
 ### 🟡 No spam mitigation beyond honeypot
