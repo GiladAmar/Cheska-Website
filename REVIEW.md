@@ -209,7 +209,7 @@ Two short paragraphs, one CTA. Visitors landing on the home page have no sense o
 ### 🟢 No fees / session-length / booking specifics anywhere
 Logged in `DESIGN_NOTES.md` already — just re-flagging because it's the most common reason South African clients bounce off practitioner sites.
 
-### 🟢 No POPIA / privacy note
+### ~~🟢 No POPIA / privacy note~~
 South Africa's POPIA law applies to handling personal information, including via the contact form. A short privacy notice (linked from the form, e.g. *"By submitting this form you consent to Fran contacting you about psychotherapy services. Your details will not be shared with third parties."*) covers the basics. A full privacy policy at `/privacy/` is recommended.
 
 ---

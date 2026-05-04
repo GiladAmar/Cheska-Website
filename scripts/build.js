@@ -26,6 +26,7 @@ const PAGES = [
   { src: 'contact/index.html',  currentPath: '/contact/' },
   { src: '404.html',            currentPath: null },
   { src: 'thanks/index.html',   currentPath: null },        // optional, only if it exists
+  { src: 'privacy/index.html',  currentPath: null },
 ];
 
 const PARTIALS = ['header', 'footer', 'jsonld', 'head-fonts', 'og-shared'];

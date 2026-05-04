@@ -331,6 +331,11 @@ p  { margin: 0 0 var(--space-2); }
   outline-offset: 2px;
 }
 .form .honey { position: absolute; left: -10000px; opacity: 0; }
+.form__privacy {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
 .form input[aria-invalid="true"],
 .form textarea[aria-invalid="true"] { border-color: var(--c-rust-deep); border-width: 2px; }
 .form__error {
@@ -408,6 +413,14 @@ p  { margin: 0 0 var(--space-2); }
 .site-footer__brand img { max-width: 10rem; }
 .site-footer p { margin: 0 0 0.35rem; }
 .site-footer a:hover { color: var(--c-rust); }
+.site-footer__legal {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--c-line);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.site-footer__legal p { margin: 0; }
 
 /* ───── utilities ───── */
 .center        { text-align: center; }

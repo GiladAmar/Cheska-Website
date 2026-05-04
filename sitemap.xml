@@ -24,6 +24,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://franamar.co.za/privacy/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
 <!-- /thanks/ is intentionally not listed: it's a post-submit landing
      and carries <meta name="robots" content="noindex"> -->
