@@ -156,14 +156,14 @@ Right now if anyone shares a page on WhatsApp, Facebook, LinkedIn, or Twitter/X,
 
 You'll need a 1200×630 OG card image — Fran's portrait + name + tagline laid out on the cream/rose palette.
 
-### 🟠 No `<link rel="canonical">` on any page
+### ~~🟠 No `<link rel="canonical">` on any page~~
 Helps prevent duplicate-content issues if Google ever crawls the GitHub Pages preview URL too. One line per page:
 
 ```html
 <link rel="canonical" href="https://franamar.co.za/about/">
 ```
 
-### 🟠 JSON-LD `medicalSpecialty: "Psychiatric"` is misleading
+### ~~🟠 JSON-LD `medicalSpecialty: "Psychiatric"` is misleading~~
 Schema.org's `Psychiatric` enum value is for psychiatry (medical doctors). Fran is a Counselling Psychologist — not a psychiatrist. Either omit the field entirely (`Psychologist` type already conveys the specialty) or use a custom URL like `https://schema.org/Psychiatric` won't help here. Recommendation: **delete the `medicalSpecialty` line** from the JSON-LD on all four pages.
 
 ### 🟡 JSON-LD `Person.image` points at a small portrait
@@ -313,7 +313,7 @@ Cormorant Garamond is fetched in `400 italic`, `400 regular`, `500 italic`, `500
 - `favicon-32.png` (32×32)
 - Optional `manifest.json` with maskable icons for PWA
 
-### 🟢 No `<meta name="theme-color">`
+### ~~🟢 No `<meta name="theme-color">`~~
 One-line addition that tints the mobile Chrome address bar to match your palette:
 
 ```html
