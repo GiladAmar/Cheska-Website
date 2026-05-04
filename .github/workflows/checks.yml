@@ -1,0 +1,52 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  html-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify partials are in sync with pages
+        run: |
+          node scripts/build.js
+          if ! git diff --quiet; then
+            echo "Pages drift from partials. Run 'npm run build' locally and commit the result." >&2
+            git --no-pager diff
+            exit 1
+          fi
+
+      - name: Set up Python (for html5validator)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install html5validator
+        run: pip install html5validator
+
+      - name: Validate HTML
+        run: html5validator --root . --match "*.html" --ignore "site/" "node_modules/" "reference/"
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run lychee link checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # only crawl the actual site files; skip Squarespace mirror + node_modules
+          args: >-
+            --no-progress
+            --max-concurrency 4
+            --exclude-path site
+            --exclude-path node_modules
+            --exclude-path reference
+            --accept 200,206,301,302,403,429
+            './**/*.html'
+          fail: true

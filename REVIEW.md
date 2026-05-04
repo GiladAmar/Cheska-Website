@@ -386,7 +386,7 @@ You're hand-writing CSS without vendor prefixes. For modern features (grid, cust
 
 ## 9. Testing & ops
 
-### 🟢 No automated checks before deploy
+### ~~🟢 No automated checks before deploy~~
 For a 4-page static site this is fine, but a tiny CI step would help:
 - HTML validation (`html5validator`)
 - Broken-link check (`linkchecker` or `lychee`)
