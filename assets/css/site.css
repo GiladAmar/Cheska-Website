@@ -214,6 +214,7 @@ p  { margin: 0 0 var(--space-2); }
   margin-bottom: var(--space-4);
   font-weight: 400;
 }
+.section__eyebrow--flush { margin-bottom: 0; }
 
 /* ───── two-column ───── */
 .cols {
@@ -387,6 +388,48 @@ p  { margin: 0 0 var(--space-2); }
   padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
   white-space: nowrap; border: 0;
 }
+
+/* page heading shared by all four pages */
+.page-title {
+  font-size: clamp(2rem, 3vw + 1rem, 3rem);
+  font-weight: 400;
+  margin-bottom: var(--space-4);
+}
+.section-heading { font-weight: 400; margin-bottom: var(--space-4); }
+.section--tight { padding-block: var(--space-4); }
+
+.text-muted    { opacity: .85; }
+.text-lg       { font-size: 1.5rem; }
+
+.measure       { max-width: 36em; margin-inline: auto; }
+.center-img    { margin-inline: auto; }
+.container--narrow { max-width: 48rem; }
+
+.divider--on-dark { border-top-color: rgba(255,255,255,0.25); }
+.divider--lg      { margin-block: var(--space-5); }
+
+.link-underline {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  text-decoration: none;
+}
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: var(--space-4); }
+.btn-row--center { justify-content: center; }
+.btn--ink {
+  color: var(--c-ink);
+  border-color: var(--c-ink);
+}
+.btn--ink:hover { background: var(--c-ink); color: var(--c-cream); }
+
+/* services-page individual psychotherapy heading is larger than the default h2 */
+.heading--feature { font-size: clamp(2rem, 4vw, 3rem); }
+
+/* available-services subheading */
+.heading--service { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-top: var(--space-3); }
+
+/* 404 oversized title */
+.heading--404 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 400; margin-bottom: var(--space-3); }
 
 /* prevent body scroll when mobile menu is open */
 body.menu-open { overflow: hidden; }

@@ -229,7 +229,7 @@ South Africa's POPIA law applies to handling personal information, including via
 
 ## 4. Code quality
 
-### 🟠 Significant inline styling
+### ~~🟠 Significant inline styling~~
 Lots of `style="..."` attributes scattered through the HTML — `style="font-size:clamp(...)"`, `style="margin-top:var(--space-3)"`, `style="border-color:rgba(255,255,255,0.25)"`, etc. They duplicate or override `site.css` and force you to edit four HTML files instead of one stylesheet to make a design tweak. Promote each to a class:
 
 | Inline | Suggested class |
