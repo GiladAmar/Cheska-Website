@@ -166,8 +166,7 @@ Google sometimes uses this for local-business panels. Add `"priceRange": "ZAR 80
 ### 🟡 Hero `<h1>` is just "Fran Amar"
 The search snippet for the home page would benefit from a more descriptive h1 — "Fran Amar — Counselling Psychologist" or "Counselling Psychologist · Camps Bay" — without losing the visual wordmark effect (use `<span>` or `<small>` for a styled second line).
 
-### 🟢 No `breadcrumbs` structured data
-Optional but useful for site-link results in Google. Each non-home page could declare a BreadcrumbList.
+### ~~🟢 No `breadcrumbs` structured data~~
 
 ### 🟢 No `WebSite` schema with `potentialAction.SearchAction`
 Only relevant if you add site search later. Skip for now.
