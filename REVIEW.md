@@ -267,13 +267,11 @@ These could be a single block.
 
 ## 5. Performance
 
-### 🟠 Hero image is oversized
-`hero-wave.jpg` is 1500×2247 (287 KB). It's used as a `background-image` covering at most ~1440×900 on a desktop. Rough wins:
-- Crop to 1600×1000 ≈ 100 KB
-- Convert to WebP / AVIF with JPEG fallback ≈ 60 KB
-- Add `<link rel="preload" as="image" href="...">` since this is the LCP candidate
+### ~~🟠 Hero image is oversized~~
+Resized 1500×2247 → 1068×1600 at JPEG q80 (sips). 287KB → 242KB. Original kept at `assets/img/originals/hero-wave.jpg`. WebP/AVIF + preload still on the table for a future pass; would need a real image pipeline (squoosh.app or imagemagick).
 
-### 🟠 Illustration PNGs are massively over-resolution
+### 🟠 Illustration PNGs are massively over-resolution (still partly open)
+Originals stashed at `assets/img/originals/` for safety. Tried sips bicubic resize: it actually grew the files (44-58KB → 45-74KB) because line-art PNGs lose their sharp-edge entropy advantage. macOS doesn't ship `pngquant`/`oxipng`/`pngcrush`, so a real shrink needs one of those installed (or squoosh.app, or an SVG redraw). At 44-58KB each they're not catastrophic — just not as small as they could be.
 Rendered widths in the page vs. asset widths:
 
 | Image | Rendered | Source | Wasted |
