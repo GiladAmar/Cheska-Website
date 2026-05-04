@@ -303,7 +303,7 @@ Two strategies, ranked by effort vs. reward:
 ### ~~🟡 No `width`/`height` on header/footer logo `<img>`~~
 The `<img src="/assets/img/logo.png" alt="...">` in the header has no dimensions. Browser doesn't reserve space until the image loads, so the page reflows after first paint (Cumulative Layout Shift). Add `width="180" height="180"` or whatever the rendered size is.
 
-### 🟡 Google Fonts loaded externally with 4 weights/styles
+### ~~🟡 Google Fonts loaded externally with 4 weights/styles~~
 Cormorant Garamond is fetched in `400 italic`, `400 regular`, `500 italic`, `500 regular`. Audit which weights are actually used — likely only 2 of the 4. Self-hosting also saves a DNS+TLS round trip.
 
 ### 🟡 No favicon set generated
