@@ -154,7 +154,7 @@ Helps prevent duplicate-content issues if Google ever crawls the GitHub Pages pr
 ### ~~🟠 JSON-LD `medicalSpecialty: "Psychiatric"` is misleading~~
 Schema.org's `Psychiatric` enum value is for psychiatry (medical doctors). Fran is a Counselling Psychologist — not a psychiatrist. Either omit the field entirely (`Psychologist` type already conveys the specialty) or use a custom URL like `https://schema.org/Psychiatric` won't help here. Recommendation: **delete the `medicalSpecialty` line** from the JSON-LD on all four pages.
 
-### 🟡 JSON-LD `Person.image` points at a small portrait
+### ~~🟡 JSON-LD `Person.image` points at a small portrait~~
 Schema.org rich-result guidance recommends ≥1200×630 or square ≥1200×1200 for `Person.image`. The current `fran-portrait.jpg` is 300×458. Use the 1200×1200 framed portrait instead, or generate a higher-res version.
 
 ### 🟡 No `priceRange` on the `Psychologist` business
@@ -163,7 +163,7 @@ Google sometimes uses this for local-business panels. Add `"priceRange": "ZAR 80
 ### 🟡 Sitemap `lastmod` is hard-coded
 `2026-05-04` will become inaccurate the moment you change anything. For a 4-page site updated rarely, this is OK — just add a note to bump it on edits, or write a tiny pre-commit hook.
 
-### 🟡 Hero `<h1>` is just "Fran Amar"
+### ~~🟡 Hero `<h1>` is just "Fran Amar"~~
 The search snippet for the home page would benefit from a more descriptive h1 — "Fran Amar — Counselling Psychologist" or "Counselling Psychologist · Camps Bay" — without losing the visual wordmark effect (use `<span>` or `<small>` for a styled second line).
 
 ### ~~🟢 No `breadcrumbs` structured data~~
@@ -189,16 +189,16 @@ Pick one master version (Services is more complete) and have Home reuse it verba
 ### ~~🟠 HPCSA number — confirm it's correct~~
 Was `PS 0156052`; Fran confirmed the correct number is `PS 0156051` and the site has been updated.
 
-### 🟡 "Suffering with" vs "suffering from"
+### ~~🟡 "Suffering with" vs "suffering from"~~
 On About: *"…those suffering with a specific mental health problem…"*. Standard English is "suffering from". Both pass, but "from" is more idiomatic.
 
-### 🟡 Missing hyphens in compound modifiers
+### ~~🟡 Missing hyphens in compound modifiers~~
 Three small grammar nits on the About page:
 - "level III BAPSA accredited" → **"Level III BAPSA-accredited"** (capital L, hyphen).
 - "object-relations" — usually written without the hyphen in psychology literature: **"object relations"**.
 - "professional individuals" → **"working professionals"** is clearer.
 
-### 🟡 Services-page metaphor is a bit awkward
+### ~~🟡 Services-page metaphor is a bit awkward~~
 *"When we notice our car's tyre may have a puncture, we typically seek help as soon as we are aware of the problem and not after the tyre is completely deflated."* Tighter alternative:
 
 > "When we notice our car's tyre may have a puncture, we don't wait until it's flat to fix it. The same is true for mental health."

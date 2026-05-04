@@ -175,7 +175,9 @@ p  { margin: 0 0 var(--space-2); }
   background-position: center;
   padding: var(--space-5) var(--space-3);
 }
+.hero__heading { margin: 0; font-weight: 400; }
 .hero__title {
+  display: block;
   font-size: clamp(2.5rem, 8vw, 5.5rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -184,6 +186,7 @@ p  { margin: 0 0 var(--space-2); }
   text-shadow: 0 1px 12px rgba(255,255,255,0.55);
 }
 .hero__tagline {
+  display: block;
   font-family: var(--f-script);
   font-size: clamp(2rem, 6vw, 3.75rem);
   font-weight: 400;
