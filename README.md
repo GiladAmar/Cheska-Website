@@ -48,4 +48,46 @@ Output lands in `reference/` (gitignored).
 
 ## Deployment
 
-Pushes to the default branch deploy automatically via GitHub Pages (Settings → Pages, source = repo root). DNS is managed at Domains.co.za with A records pointing at GitHub Pages' IPs and a `www` CNAME to `giladamar.github.io`.
+Pushes to the default branch deploy automatically via GitHub Pages (Settings → Pages, source = repo root). The `CNAME` file in the repo root holds the custom domain (`franamar.co.za`) — do not delete it.
+
+## DNS configuration
+
+DNS is managed at **Domains.co.za**. To point the apex domain `franamar.co.za` and the `www` subdomain at this GitHub Pages site, set the following records on the `franamar.co.za` zone:
+
+**Apex (`@` / `franamar.co.za`) — four A records pointing at GitHub Pages:**
+
+| Type | Host | Value           | TTL  |
+|------|------|-----------------|------|
+| A    | @    | 185.199.108.153 | 3600 |
+| A    | @    | 185.199.109.153 | 3600 |
+| A    | @    | 185.199.110.153 | 3600 |
+| A    | @    | 185.199.111.153 | 3600 |
+
+Optionally add the matching IPv6 AAAA records (same `@` host) for IPv6 clients:
+
+```
+2606:50c0:8000::153
+2606:50c0:8001::153
+2606:50c0:8002::153
+2606:50c0:8003::153
+```
+
+**`www` subdomain — single CNAME pointing at the GitHub Pages user site:**
+
+| Type  | Host | Value                | TTL  |
+|-------|------|----------------------|------|
+| CNAME | www  | giladamar.github.io. | 3600 |
+
+(Note the trailing dot on `giladamar.github.io.` — Domains.co.za usually adds it automatically.)
+
+**Then in the GitHub repo:** Settings → Pages → Custom domain → enter `franamar.co.za` → Save → tick **Enforce HTTPS** once the certificate provisions (can take up to ~24 hours after DNS propagates).
+
+### Verifying
+
+```bash
+dig +short franamar.co.za        # should return the four 185.199.x.153 IPs
+dig +short www.franamar.co.za    # should return giladamar.github.io. then the IPs
+curl -I https://franamar.co.za   # should be HTTP/2 200 from GitHub.com servers
+```
+
+If `dig` still shows old records, propagation can take up to 24 hours depending on the previous TTL. If GitHub Pages reports a domain verification error, check the `CNAME` file in the repo matches the domain entered in Settings → Pages.

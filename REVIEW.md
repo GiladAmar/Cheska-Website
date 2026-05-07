@@ -391,3 +391,74 @@ If you have **a day**:
 - Audit content per `DESIGN_NOTES.md` and decide what to act on
 - Add Cloudflare Web Analytics
 - Do a real Lighthouse / Wave / axe audit and act on findings
+
+---
+
+## 11. Second-pass review additions
+
+A fresh-eyes pass (GitHub Copilot) confirmed everything in §0–§10 still stands and surfaced the items below. Each was cross-checked against the live source before being recorded here. Listed in roughly priority order.
+
+### 🟠 Hero text is dark ink over a darkened photo, with a white-glow text-shadow
+`site.css:172–195` sets `.hero { color: var(--c-ink) }` (near-black) and `text-shadow: 0 1px 12px rgba(255,255,255,0.55)` on the wordmark, all sitting on a `linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.28))` over `hero-wave.jpg`. Dark text over a *darkened* image is unconventional — the standard pattern is light text + dark overlay (or dark text + light overlay). The white text-shadow is acting as a glow rather than a lift, which blurs the wordmark instead of helping it. Two clean options:
+- Switch hero text to cream (`--c-cream`) and drop the white shadow — the overlay is already dark enough.
+- Swap the overlay to a `rgba(255,255,255,0.25)` wash and keep the dark text.
+
+I'd lean toward the first for a more confident, conventional feel.
+
+### 🟠 Audience definition is inconsistent across pages
+Home / Services / meta descriptions say *"adults"*. About says Fran has worked *"within schools"* and *"with students"*; Services lists *adolescence* as an example developmental challenge. A prospective parent or older teen can't tell whether they're eligible. Pick one definition and apply everywhere — if adults-only, drop the school/student references on About and the adolescence example on Services.
+
+### 🟠 Response time only appears on /thanks/
+*"Fran will be in touch within 3 working days"* lives on the post-submission thank-you page — visitors haven't seen it when they're deciding whether to send. Surface it next to the form on `index.html` and `contact/index.html` (a one-liner: *"I aim to respond within 3 working days."*) to lower the activation cost.
+
+### 🟠 No practical booking info — re-prioritised from §3 🟢
+Logged in §3 / DESIGN_NOTES at low priority, but a second-pass reads it as the single biggest conversion gap. Visitors who reach the contact section have to email Fran *just* to find out session length, fees, medical aid stance, and what happens next. Even a stripped-back "Practical information" block on Services would close it: 50-minute sessions, in-person or online, fees on request (or rough range), medical aid position, response time. Bumping to 🟠.
+
+### 🟠 HPCSA number is footer-only
+HPCSA registration is currently only visible in the footer. South African visitors actively look for this as a trust signal before reaching out — moving it (or a *"HPCSA-registered Counselling Psychologist · PS 0156051"* line) into the home hero or under the About preview puts it above the fold.
+
+### 🟡 `clearError()` doesn't strip `aria-describedby`
+`assets/js/site.js:79` removes `aria-invalid` on validity but not `aria-describedby`. The error `<p>` it pointed at gets removed from the DOM, so the field references a now-missing ID — screen readers may announce nothing useful or stumble. One-line fix inside `clearError`:
+
+```js
+field.removeAttribute('aria-describedby');
+```
+
+### 🟡 Home page eyebrows are still `<span>`s — heading tree skips
+About and Services were fixed (eyebrow `<span>` → `<h1>`), but home is still:
+
+```
+<h1 class="hero__heading">  (Fran Amar)
+<span class="section__eyebrow">  About
+<span class="section__eyebrow">  Areas of interest
+<span class="section__eyebrow">  Available Services
+<h3 class="script">              Individual psychotherapy
+<span class="section__eyebrow">  In-person and online options
+<h2>                              Contact Fran
+```
+
+Screen-reader heading nav sees h1 → h3 → h2 with no `<h2>` anchors for any of the named sections. Promote each section eyebrow on home to `<h2 class="section__eyebrow italic">` (CSS doesn't care about the tag).
+
+### 🟡 Rose-section body text — concrete fix
+§1 already flagged `--c-rust-deep` (#8a3514) on `--c-rose` (#dfb5a3) at 4.19:1 as borderline. Concrete recommendation: darken body text on rose to `#7f2f11` (~4.9:1) while keeping the brighter rust-deep for headings (which only need 3:1 at large sizes).
+
+### 🟡 Google Maps embed uses the deprecated `output=embed` parameter
+`index.html:216` uses `https://www.google.com/maps?q=...&output=embed`. Google has been phasing this format out in favour of the Maps Embed API (which requires an API key). The embed could stop rendering with little notice. Two paths: (a) switch to a static map screenshot + the existing "View on Google Maps →" link, or (b) accept the risk and monitor. (a) also removes a third-party request on first paint, which has a privacy upside.
+
+### 🟡 Google Fonts loaded externally — POPIA / privacy angle
+§5 noted self-hosting saves a DNS+TLS round-trip; framing it as privacy makes it sharper. Loading from `fonts.googleapis.com` sends every visitor's IP to Google before any interaction. For a psychotherapy practice where discretion matters, that's worth taking seriously — self-host the two `.woff2` files (Cormorant Garamond, Allura) to eliminate it.
+
+### 🟡 Winnicott quote band has no context
+The quote (*"It is a joy to be hidden, and disaster not to be found"*) sits between two heavy colour blocks with no attribution context. Most visitors won't know Winnicott. Either give it a fuller section with breathing room and one sentence of context, or move it to the About page where the therapeutic approach is explained.
+
+### 🟢 404 page `<main>` has no `id`
+`404.html:43` — `<main>` lacks `id="main"`, so any future skip-link wouldn't land. Match the rest of the site for consistency.
+
+### 🟢 "Our mental health and functioning exists on a continuum"
+`services/index.html:163` — compound subject takes a plural verb: *"exist"*.
+
+### 🟢 Footer links only Privacy
+The footer could pick up the rest of the site map (About, Services, Contact) so visitors at the bottom of long pages have a way back into navigation.
+
+### 🟢 Formspree `_next` redirect — periodic test
+The `_next` hidden input is the lever for the friendly /thanks/ redirect. If Formspree tightens its form-handling flow the field could be silently ignored. Worth a periodic submission test.
