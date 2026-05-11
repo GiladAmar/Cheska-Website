@@ -52,7 +52,13 @@ Pushes to the default branch deploy automatically via GitHub Pages (Settings →
 
 ## DNS configuration
 
-DNS is managed at **Domains.co.za**. To point the apex domain `franamar.co.za` and the `www` subdomain at this GitHub Pages site, set the following records on the `franamar.co.za` zone:
+DNS is managed at **Domains.co.za**. Following [GitHub's custom-domain guidance](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site), the order of operations matters:
+
+**1. Add the custom domain in the repo first.** Settings → Pages → Custom domain → enter `franamar.co.za` → Save. GitHub recommends this *before* changing DNS so nobody else can claim a subdomain on the way through.
+
+**2. Remove any default records the registrar set** for the apex (`@`) and `www` hosts on the `franamar.co.za` zone before adding the new ones — Domains.co.za often pre-populates parking records that will conflict.
+
+**3. Configure DNS as follows.**
 
 **Apex (`@` / `franamar.co.za`) — four A records pointing at GitHub Pages:**
 
@@ -63,7 +69,9 @@ DNS is managed at **Domains.co.za**. To point the apex domain `franamar.co.za` a
 | A    | @    | 185.199.110.153 | 3600 |
 | A    | @    | 185.199.111.153 | 3600 |
 
-Optionally add the matching IPv6 AAAA records (same `@` host) for IPv6 clients:
+If your DNS provider supports it, an `ALIAS` or `ANAME` record on `@` pointing at `giladamar.github.io.` is an acceptable alternative to the four A records (Domains.co.za doesn't, so we use A records).
+
+Also add the matching IPv6 AAAA records (same `@` host) for IPv6 clients — GitHub recommends keeping the A records alongside them due to uneven IPv6 adoption:
 
 ```
 2606:50c0:8000::153
@@ -80,7 +88,7 @@ Optionally add the matching IPv6 AAAA records (same `@` host) for IPv6 clients:
 
 (Note the trailing dot on `giladamar.github.io.` — Domains.co.za usually adds it automatically.)
 
-**Then in the GitHub repo:** Settings → Pages → Custom domain → enter `franamar.co.za` → Save → tick **Enforce HTTPS** once the certificate provisions (can take up to ~24 hours after DNS propagates).
+**4. Enforce HTTPS.** Back in Settings → Pages, tick **Enforce HTTPS** once the certificate provisions. The option can take up to 24 hours to become available after DNS propagates.
 
 ### Verifying
 
