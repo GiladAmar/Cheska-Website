@@ -52,43 +52,76 @@ Pushes to the default branch deploy automatically via GitHub Pages (Settings →
 
 ## DNS configuration
 
-DNS is managed at **Domains.co.za**. Following [GitHub's custom-domain guidance](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site), the order of operations matters:
+DNS is managed at **Domains.co.za**. The domain currently points to a Squarespace site, so this is a migration: existing Squarespace records get replaced with GitHub Pages records on the same zone. Following [GitHub's custom-domain guidance](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site), the order of operations matters.
 
-**1. Add the custom domain in the repo first.** Settings → Pages → Custom domain → enter `franamar.co.za` → Save. GitHub recommends this *before* changing DNS so nobody else can claim a subdomain on the way through.
+### Pre-flight
 
-**2. Remove any default records the registrar set** for the apex (`@`) and `www` hosts on the `franamar.co.za` zone before adding the new ones — Domains.co.za often pre-populates parking records that will conflict.
+**Confirm Domains.co.za is the authoritative DNS host.** Log in to Domains.co.za → **Manage Services** → **Domains** → **Manage** next to `franamar.co.za` → check the Nameservers section. They should be the Domains.co.za defaults:
 
-**3. Configure DNS as follows.**
+- `ns1.tld-ns.net`
+- `ns2.tld-ns.com`
+- `ns3.tld-ns.net`
+- `ns4.tld-ns.com`
 
-**Apex (`@` / `franamar.co.za`) — four A records pointing at GitHub Pages:**
+If the Nameservers section shows anything else (e.g. Squarespace's own nameservers), switch them back to the four above first — records added in Domains.co.za's DNS editor won't take effect until the nameservers point there. Propagation can take up to 24–48 hours.
 
-| Type | Host | Value           | TTL  |
-|------|------|-----------------|------|
-| A    | @    | 185.199.108.153 | 3600 |
-| A    | @    | 185.199.109.153 | 3600 |
-| A    | @    | 185.199.110.153 | 3600 |
-| A    | @    | 185.199.111.153 | 3600 |
+**Check for DS records (DNSSEC).** If the domain has DS records set (from a prior DNSSEC setup), **remove them before changing the zone** — otherwise resolvers will reject the new records as bogus and the site will appear broken. If there are none, skip. Glue records aren't relevant here — leave alone.
 
-If your DNS provider supports it, an `ALIAS` or `ANAME` record on `@` pointing at `giladamar.github.io.` is an acceptable alternative to the four A records (Domains.co.za doesn't, so we use A records).
+**Inspect what's there now** so you know what to delete:
 
-Also add the matching IPv6 AAAA records (same `@` host) for IPv6 clients — GitHub recommends keeping the A records alongside them due to uneven IPv6 adoption:
-
-```
-2606:50c0:8000::153
-2606:50c0:8001::153
-2606:50c0:8002::153
-2606:50c0:8003::153
+```bash
+dig +short franamar.co.za        # likely Squarespace IPs (198.185.159.* / 198.49.23.*)
+dig +short www.franamar.co.za    # likely a CNAME to ext-cust.squarespace.com
+dig DS franamar.co.za +short     # any output means DNSSEC is active — clear it first
 ```
 
-**`www` subdomain — single CNAME pointing at the GitHub Pages user site:**
+### Steps
 
-| Type  | Host | Value                | TTL  |
-|-------|------|----------------------|------|
-| CNAME | www  | giladamar.github.io. | 3600 |
+**1. Add the custom domain in the GitHub repo first.** Settings → Pages → Custom domain → enter `franamar.co.za` → Save. GitHub recommends this *before* changing DNS so nobody else can claim a subdomain on the way through.
 
-(Note the trailing dot on `giladamar.github.io.` — Domains.co.za usually adds it automatically.)
+**2. Open the DNS editor on Domains.co.za.** **Manage Services** → **Domains** → **Manage** next to `franamar.co.za` → **Manage DNS** (adjacent to the "DNS Records" section).
 
-**4. Enforce HTTPS.** Back in Settings → Pages, tick **Enforce HTTPS** once the certificate provisions. The option can take up to 24 hours to become available after DNS propagates.
+**3. Remove the existing Squarespace records.** Typically these are:
+
+- A records on the apex pointing at `198.185.159.144`, `198.185.159.145`, `198.49.23.144`, `198.49.23.145` (Squarespace's IPs).
+- A CNAME on `www.franamar.co.za` pointing at `ext-cust.squarespace.com` (or similar).
+- A verification CNAME (a long hex/alphanumeric host) pointing at `verify.squarespace.com`.
+
+Delete each, plus anything else on the apex or `www` that isn't relevant.
+
+**4. Add the GitHub Pages records.** Click **Add DNS Records** and add each row below. Domains.co.za's panel uses the **full domain name** in the Host field — *not* `@`.
+
+**Apex (`franamar.co.za`) — four A records pointing at GitHub Pages:**
+
+| Type | Host             | Value           | TTL  |
+|------|------------------|-----------------|------|
+| A    | franamar.co.za   | 185.199.108.153 | 3600 |
+| A    | franamar.co.za   | 185.199.109.153 | 3600 |
+| A    | franamar.co.za   | 185.199.110.153 | 3600 |
+| A    | franamar.co.za   | 185.199.111.153 | 3600 |
+
+An `ALIAS`/`ANAME` on the apex pointing at `giladamar.github.io.` would also work but Domains.co.za doesn't support those record types, so we use the four A records.
+
+**Apex — matching AAAA records for IPv6 clients** (keep alongside the A records — GitHub recommends both due to uneven IPv6 adoption):
+
+| Type | Host             | Value                | TTL  |
+|------|------------------|----------------------|------|
+| AAAA | franamar.co.za   | 2606:50c0:8000::153  | 3600 |
+| AAAA | franamar.co.za   | 2606:50c0:8001::153  | 3600 |
+| AAAA | franamar.co.za   | 2606:50c0:8002::153  | 3600 |
+| AAAA | franamar.co.za   | 2606:50c0:8003::153  | 3600 |
+
+**`www` — single CNAME pointing at the GitHub Pages user site:**
+
+| Type  | Host               | Value                | TTL  |
+|-------|--------------------|----------------------|------|
+| CNAME | www.franamar.co.za | giladamar.github.io. | 3600 |
+
+(The trailing dot on `giladamar.github.io.` is usually added by Domains.co.za automatically.)
+
+**5. Enforce HTTPS.** Back in GitHub Settings → Pages, tick **Enforce HTTPS** once the certificate provisions. The option can take up to 24 hours to become available after DNS propagates.
+
+**6. Disconnect the domain in Squarespace.** Once the site is serving from GitHub Pages over HTTPS, go to the Squarespace dashboard → Settings → Domains → `franamar.co.za` → Disconnect. Doing this *after* the cutover avoids any window where neither host is serving the domain. Squarespace may continue sending renewal/verification emails until disconnected, which is harmless but worth clearing up.
 
 ### Verifying
 
