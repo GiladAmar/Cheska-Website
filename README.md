@@ -73,7 +73,11 @@ If the Nameservers section shows anything else (e.g. Squarespace's own nameserve
 dig +short franamar.co.za        # likely Squarespace IPs (198.185.159.* / 198.49.23.*)
 dig +short www.franamar.co.za    # likely a CNAME to ext-cust.squarespace.com
 dig DS franamar.co.za +short     # any output means DNSSEC is active — clear it first
+dig MX franamar.co.za +short     # Google Workspace mail (ASPMX.L.GOOGLE.COM etc.) — KEEP these
+dig TXT franamar.co.za +short    # SPF / domain-verification records — KEEP these
 ```
+
+**The domain also carries Fran's email (Google Workspace).** The MX records (`ASPMX.L.GOOGLE.COM`, `ALT1`–`ALT4.ASPMX.L.GOOGLE.COM`, and the `mx-verification.google.com` one) and any TXT records must stay exactly as they are. Only web records (A / AAAA / CNAME on the apex and `www`) change in this migration. Deleting an MX record stops her email arriving.
 
 ### Steps
 
@@ -86,8 +90,9 @@ dig DS franamar.co.za +short     # any output means DNSSEC is active — clear i
 - A records on the apex pointing at `198.185.159.144`, `198.185.159.145`, `198.49.23.144`, `198.49.23.145` (Squarespace's IPs).
 - A CNAME on `www.franamar.co.za` pointing at `ext-cust.squarespace.com` (or similar).
 - A verification CNAME (a long hex/alphanumeric host) pointing at `verify.squarespace.com`.
+- Any other A record on the apex — e.g. `169.239.219.58`, which is present at the time of writing and is likely a Domains.co.za hosting/parking default. Leaving it in place means some visitors get round-robined to the wrong server.
 
-Delete each, plus anything else on the apex or `www` that isn't relevant.
+Delete only those web records (A / AAAA / CNAME on the apex and `www`). **Do not touch MX or TXT records** — they carry Fran's Google Workspace email (see Pre-flight).
 
 **4. Add the GitHub Pages records.** Click **Add DNS Records** and add each row below. Domains.co.za's panel uses the **full domain name** in the Host field — *not* `@`.
 
@@ -128,7 +133,10 @@ An `ALIAS`/`ANAME` on the apex pointing at `giladamar.github.io.` would also wor
 ```bash
 dig +short franamar.co.za        # should return the four 185.199.x.153 IPs
 dig +short www.franamar.co.za    # should return giladamar.github.io. then the IPs
+dig MX franamar.co.za +short     # should still list the Google ASPMX servers
 curl -I https://franamar.co.za   # should be HTTP/2 200 from GitHub.com servers
 ```
+
+Then send a test email to Fran's `@franamar.co.za` address to confirm mail still arrives.
 
 If `dig` still shows old records, propagation can take up to 24 hours depending on the previous TTL. If GitHub Pages reports a domain verification error, check the `CNAME` file in the repo matches the domain entered in Settings → Pages.

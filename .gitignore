@@ -2,3 +2,4 @@ site/
 node_modules/
 reference/
 .idea/
+.DS_Store

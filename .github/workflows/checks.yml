@@ -3,7 +3,7 @@ name: checks
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, claude/migrate-squarespace-hosting-Fn02B]
   workflow_dispatch:
 
 jobs:
