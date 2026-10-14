@@ -51,6 +51,7 @@ jobs:
             --exclude-path reference
             --root-dir ${{ github.workspace }}
             --exclude '^https?://(www\.)?franamar\.co\.za'
+            --exclude '^https://formspree\.io/f/'
             --accept 200,206,301,302,403,429
             './**/*.html'
           fail: true
