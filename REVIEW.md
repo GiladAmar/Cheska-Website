@@ -366,6 +366,13 @@ Without analytics you have no idea if anyone reaches the site, how they got ther
 
 One `<script>` tag in `<head>`. No consent banner needed because none use personal identifiers.
 
+**Deferred until after the DNS cutover.** Squarespace's built-in analytics go away with the migration, so this is the replacement. Recommended plan:
+
+1. **Cloudflare Web Analytics** (recommended of the above). Create a free Cloudflare account → Web Analytics → add `franamar.co.za` → copy the beacon token. This does *not* require moving DNS to Cloudflare. Then:
+   - add the beacon `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "…"}'></script>` to a shared partial (e.g. `partials/head-fonts.html`, or a new `partials/analytics.html` wired into every page) and run `npm run build`;
+   - add a sentence to `/privacy/` saying anonymous, cookieless visit statistics are collected via Cloudflare.
+2. **Google Search Console** — arguably more useful than visit counts for a practice: shows which searches surface the site, indexing problems, and lets you submit `sitemap.xml`. Verify via a **TXT record** at Domains.co.za (sits alongside the Google Workspace MX records without affecting mail). Submit the sitemap and check that the old Squarespace URLs (`/home`, `/about`, …) resolve after cutover.
+
 ### 🟢 No backup of Formspree submissions
 If Formspree disappears or rate-limits you, submissions vanish. Fran should configure Formspree to also forward to her email immediately (which she's doing via the notification email, but the dashboard is the only archive). Worth periodically exporting.
 
@@ -389,7 +396,7 @@ If you have **half a day**:
 If you have **a day**:
 
 - Audit content per `DESIGN_NOTES.md` and decide what to act on
-- Add Cloudflare Web Analytics
+- Add Cloudflare Web Analytics + Google Search Console after DNS cutover (see §9 "No analytics")
 - Do a real Lighthouse / Wave / axe audit and act on findings
 
 ---
