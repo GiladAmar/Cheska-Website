@@ -40,13 +40,17 @@ jobs:
       - name: Run lychee link checker
         uses: lycheeverse/lychee-action@v2
         with:
-          # only crawl the actual site files; skip Squarespace mirror + node_modules
+          # only crawl the actual site files; skip Squarespace mirror + node_modules.
+          # Own-domain absolute URLs (canonicals, og:url) are excluded: local files are
+          # already checked via --root-dir, and the domain serves Squarespace until cutover.
           args: >-
             --no-progress
             --max-concurrency 4
             --exclude-path site
             --exclude-path node_modules
             --exclude-path reference
+            --root-dir ${{ github.workspace }}
+            --exclude '^https?://(www\.)?franamar\.co\.za'
             --accept 200,206,301,302,403,429
             './**/*.html'
           fail: true
